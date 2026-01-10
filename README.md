@@ -23,6 +23,41 @@ Let's break down the code:
 - `return 0;`: This indicates that the program ended successfully.
 
 
+# Variables and Data Types
+C supports various data types including:
+- `int`: Integer type for whole numbers. It has a typical value range of -32,768 to 32,767 (for 16-bit) or -2,147,483,648 to 2,147,483,647 (for 32-bit).
+- `float`: Floating-point type for decimal numbers. It has a typical precision of 6 decimal places.
+- `char`: Character type for single characters. It typically uses 1 byte of memory.
+- `double`: Double-precision floating-point type for more precise decimal numbers. It has a typical precision of 15 decimal places. It's faster and more accurate than `float` for complex calculations. 
+- `void`: Represents the absence of type, often used for functions that do not return a value. 
+## Naming Conventions
+When naming variables and functions in C, follow these conventions:
+- Use meaningful names that reflect the purpose of the variable or function.
+- Start names with a letter (a-z, A-Z) or an underscore (_), followed by letters, digits (0-9), or underscores.
+- Avoid using C reserved keywords (e.g., int, return, if, else).
+- Use camelCase or snake_case for multi-word names (e.g., myVariable, my_function).
+- Be consistent with your naming style throughout your codebase.
 
+# Printf Function
+The `printf` function is used to print formatted output to the console. Here are some common format specifiers:
+- `%d`: Integer
+- `%f`: Floating-point number
+- `%c`: Character
+- `%s`: String
+- `%%`: Percent sign
+Example:
+```c
+int age = 25;
+printf("I am %d years old.\n", age);
+```
 
-
+# Constants
+Constants are fixed values that do not change during the execution of a program. In C, you can define constants using the `#define` preprocessor directive or the `const` keyword.
+Example using `#define`:
+```c
+#define PI 3.14
+```
+Example using `const`:
+```c
+const int MAX_SIZE = 100;
+```

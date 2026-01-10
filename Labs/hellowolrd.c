@@ -2,5 +2,6 @@
 
 int main()
 {
-    printf("Hello, World!\n");
+    #define PI 3.14159
+    printf("Hello, %f\n", PI);
 }
