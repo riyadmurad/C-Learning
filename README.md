@@ -124,5 +124,53 @@ else {
 | 8 | \|\| |
 | 9 | all assignment operators |
 
+# Condition Structures
+C provides various control structures to manage the flow of execution in a program:
+- `if`, `else if`, `else`: Conditional statements to execute code based on certain conditions.
+- `switch`: A multi-way branch statement that allows a variable to be tested for equality against a list of values.
+ `switch`statements look like this:
+    ```c
+    switch (expression) {
+        case constant1:
+            // code to be executed if expression equals constant1
+            break;
+        case constant2:
+            // code to be executed if expression equals constant2
+            break;
+        default:
+            // code to be executed if expression doesn't match any case
+    }
+    ``` 
+  >[!NOTE]Note:
+   > Without the `break` keyword at the end of each case, the program would execute the code for the **first matching** case and all subsequent cases, including the default code.
+- `Ternary Operator`: A shorthand for `if-else` statements. It takes three operands: a condition, a value if true, and a value if false. It looks like this:
+    ```c
+    condition ? value_if_true : value_if_false;
+    ```
+
+
+# Example Coin Flip Program
+Here's a simple program that simulates a coin flip:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    // Create random number that returns 0 or 1
+    srand(time(0)); // Seed the random number generator
+    int coin = rand() % 2; // Generate a random number (0 or
+    if (coin == 0) {
+        printf("Head\n");
+  } else {
+        printf("Tail\n");
+  }
+}
+```
+
+
+
+
+
 
 
