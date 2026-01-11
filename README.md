@@ -61,3 +61,68 @@ Example using `const`:
 ```c
 const int MAX_SIZE = 100;
 ```
+
+# Mathematical Operators
+C provides various mathematical operators for performing arithmetic operations:
+- Addition (`+`): Adds two operands.
+- Subtraction (`-`): Subtracts the second operand from the first.
+- Multiplication (`*`): Multiplies two operands.
+- Division (`/`): Divides the first operand by the second.
+- Modulus (`%`): Returns the remainder of the division of two integers. 
+
+## Increment, Decrement and Assignment Operators
+- Increment (`++`): Increases an integer's value by one.
+- Decrement (`--`): Decreases an integer's value by one.
+- Assignment you can use operators like `+=`, `-=`, `*=`, `/=` to modify the value of a variable by performing an operation and assigning the result back to the variable.
+Example:
+```c
+int a = 5;
+int b=10;
+a++; // Now a is 6
+a--; // Now a is 5 again
+a+=b; // Now a is 15
+``` 
+
+## Comparison and Logical Operators
+- Equal to (`==`): Checks if two values are equal.
+- Not equal to (`!=`): Checks if two values are not equal.
+- Greater than (`>`): Checks if the left value is greater than the right.
+- Less than (`<`): Checks if the left value is less than the right.
+- Greater than or equal to (`>=`): Checks if the left value is greater than or equal to the right.
+- Less than or equal to (`<=`): Checks if the left value is less than or equal to the right.
+- Logical AND (`&&`): Returns true if both operands are true.
+- Logical OR (`||`): Returns true if at least one operand is true.
+
+Example:
+```c
+int x = 10;
+int y = 5;
+if (x >= 5 && y <= 10) {
+    printf("x is greater than or equal to 5 and y is less than or equal to 10\n");   
+}
+else {
+    printf("Condition not met\n");
+}   
+```
+## Order of Operations
+| Priority | Symbol |
+|----------|--------|
+| 1 | ++ |
+| 1 | -- |
+| 1 | () |
+| 2 | ! |
+| 2 | (typecast) |
+| 3 | * |
+| 3 | / |
+| 3 | % |
+| 4 | + |
+| 4 | - |
+| 5 | <, <= |
+| 5 | >, >= |
+| 6 | ==, != |
+| 7 | && |
+| 8 | \|\| |
+| 9 | all assignment operators |
+
+
+
