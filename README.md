@@ -167,6 +167,33 @@ int main() {
   }
 }
 ```
+# Loops
+C provides several types of loops to execute a block of code multiple times:
+- `for` loop: Used when the number of iterations is known beforehand.
+    - Example:
+    ```c
+    for (int i = 0; i < 10; i++) {
+        printf("%d\n", i);
+    }
+    ```
+- `while` loop: Used when the number of iterations is not known and depends on a condition.
+    - Example:
+    ```c
+    int i = 0;
+    while (i < 10) {
+        printf("%d\n", i);
+        i++;
+    }
+    ```
+- `do-while` loop: Similar to the `while` loop, but guarantees at least one execution of the loop body.
+ - Example:
+    ```c
+    int i = 0;
+    do {
+        printf("%d\n", i);
+        i++;
+    } while (i < 10);
+    ```
 
 
 
