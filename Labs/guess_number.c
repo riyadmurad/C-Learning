@@ -2,15 +2,20 @@
 
 int main() {
 
-  int i = 99;
+  double i = 0;
+  char input[20];
+  scanf("%s", input);
 
-  while (i<=99&& i>=1){
-    printf("%d bottles of pop on the wall\n", i);
-    printf("Take one down and pass it around\n");
-    printf ("%d bottles of pop on the wall\n", i-1);
-      i--;
+  while (i < 10) {
+    // Figure out how to skip the print of 5 here
+    if (i== 5){
+        i++;
+      continue;
+    }
+    printf("%s %ld\n", input, i);
+    i++;
+ }
 
-  };
-
-
+    
+  return 0;
 }

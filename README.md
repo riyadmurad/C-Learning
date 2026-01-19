@@ -41,10 +41,12 @@ When naming variables and functions in C, follow these conventions:
 # Printf Function
 The `printf` function is used to print formatted output to the console. Here are some common format specifiers:
 - `%d`: Integer
-- `%f`: Floating-point number
+- `%f`: Floating-point number or double number
 - `%c`: Character
 - `%s`: String
 - `%%`: Percent sign
+
+
 Example:
 ```c
 int age = 25;
@@ -194,6 +196,109 @@ C provides several types of loops to execute a block of code multiple times:
         i++;
     } while (i < 10);
     ```
+## Break and Continue Statements
+- `break`: Exits the nearest enclosing loop or switch statement.
+- `continue`: Skips the current iteration of the nearest enclosing loop and proceeds to the next iteration.
+
+Example:
+```c
+for (int i = 0; i < 10; i++) {
+    if (i == 5) {
+        break; // Exit the loop when i is 5
+    }
+    if (i % 2 == 0) {
+        continue; // Skip even numbers
+    }
+    printf("%d\n", i); // Print odd numbers less than 5
+}
+```
+
+# Arrays
+An array is a collection of data that can be of any type. For example, you can construct an array of `int`s, `bool`s, `char`s, etc.
+
+There are two types of arrays that can be created: an `initialized` array or an `uninitialized` array. As its name implies, an uninitialized array is created without specifying the initial values it contains. 
+You can declare an uninitialized array like this:
+```c
+int numbers[5]; // Declares an array of 5 integers
+```
+You can initialize an array at the time of declaration:
+```c
+int numbers[5] = {1, 2, 3, 4, 5};
+```
+You can access array elements using their index (starting from 0):
+```c
+printf("%d\n", numbers[0]); // Prints the first element (1)
+
+```
+
+## Accessing and Modifying Array Elements
+You can access and modify array elements using their index. For example:
+```c
+int numbers[5] = {1, 2, 3, 4, 5};
+numbers[2] = 10; // Modify the third element
+printf("%d\n", numbers[2]); // Prints 10
+```
+
+## Size of an Array
+the `sizeof` operator can be used to determine the size of an array in bytes. To calculate the number of elements in an array, divide the total size of the array by the size of the array's data type:
+```c
+int numbers[5] = {1, 2, 3, 4, 5};
+int size = sizeof(numbers) / sizeof(int); // Calculates the number of elements
+printf("Array size: %d\n", size); // Prints 5
+```
+
+## Multi-Dimensional Arrays
+It's an array storing multiple arrays. You can declare a two-dimensional array like this:
+```c
+int matrix[3][4]; // Declares a 2D array with 3 rows and 4 columns
+```
+You can initialize a two-dimensional array at the time of declaration:
+```c
+int matrix[3][4] = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
+```
+You can access elements in a two-dimensional array using two indices:
+```c
+printf("%d\n", matrix[1][2]); // Prints 7 (second row, third column)
+```  
+
+To access the elements of a multi-dimensional array, you can use nested loops. For example, to print all elements of a 2D array:
+```c
+int matrix[3][4] = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+}; 
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 4; j++) {
+        printf("%d ", matrix[i][j]);
+    }
+    printf("\n");
+}
+```
+
+To get the size of a multi-dimensional array:
+ * rowDimension = sizeof(matrix)/sizeof(matrix[0]);
+ * columnDimension = sizeof(matrix[0])/sizeof(dataType);
+ 
+ For example:
+```c
+int mat[3][3] = {{12, 8, 2}, {17, 19, 5}, {6, 11, 2}};
+
+int rowDimension = sizeof(mat)/sizeof(mat[0]);
+int columnDimension = sizeof(mat[0])/sizeof(int);
+
+for(int i = 0; i < rowDimension; i++){
+  for(int j = 0; j < columnDimension; j++){
+    int num = mat[i][j];
+    printf("%i\n", num);
+  }
+}
+```
+
 
 
 
