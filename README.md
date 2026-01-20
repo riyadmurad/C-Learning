@@ -143,7 +143,7 @@ C provides various control structures to manage the flow of execution in a progr
             // code to be executed if expression doesn't match any case
     }
     ``` 
-  >[!NOTE]:
+  >[!NOTE]
    > Without the `break` keyword at the end of each case, the program would execute the code for the **first matching** case and all subsequent cases, including the default code.
 - `Ternary Operator`: A shorthand for `if-else` statements. It takes three operands: a condition, a value if true, and a value if false. It looks like this:
     ```c
