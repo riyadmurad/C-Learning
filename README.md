@@ -143,7 +143,7 @@ C provides various control structures to manage the flow of execution in a progr
             // code to be executed if expression doesn't match any case
     }
     ``` 
-  >[!NOTE]Note:
+  >[!NOTE]:
    > Without the `break` keyword at the end of each case, the program would execute the code for the **first matching** case and all subsequent cases, including the default code.
 - `Ternary Operator`: A shorthand for `if-else` statements. It takes three operands: a condition, a value if true, and a value if false. It looks like this:
     ```c
@@ -298,6 +298,20 @@ for(int i = 0; i < rowDimension; i++){
   }
 }
 ```
+
+## Creating and initializing Character Arrays
+Character arrays, also known as strings in C, can be created and initialized in two ways:
+1. Using single quotes for each character and ending with a null terminator (`\0`):
+```c
+char greeting[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+```
+2. Using double quotes, which automatically adds the null terminator:
+```c
+char greeting[] = "Hello";
+```
+>[!NOTE]
+ > In C, strings are represented as arrays of characters terminated by a null character (`\0`). This null terminator indicates the end of the string. When using double quotes to initialize a character array, the compiler automatically appends the null terminator for you.
+
 
 
 
