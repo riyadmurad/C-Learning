@@ -1,13 +1,22 @@
 #include<stdio.h>
+#include<string.h>
 
 int main() {
-  // Checkpoint 1 code goes here
-  char comp[] = {'C','o','m','p','u','t','e','r'};
-  
-  // Checkpoint 2 code goes here
-  char compCode[] = "Computer Code";
+    
+  char s1[14] = "London";
+  char s2[] = " Bridge";
 
-  // Checkpoint 3 code goes here 
-  printf("%s\n",comp);
-  printf("%s\n",compCode);     
+  char n[20] = "New";
+  char y[] = " York";
+  char c[] = " City";
+
+  // Code for checkpoint 1 goes here
+  strcat(s1,s2);
+  printf("%s\n",s1);
+  
+  // Code for checkpoint 2 goes here
+  strcat(strcat(n,y),c);
+  printf("%s\n",n);
+  
+
 }

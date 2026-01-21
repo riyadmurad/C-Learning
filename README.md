@@ -312,6 +312,29 @@ char greeting[] = "Hello";
 >[!NOTE]
  > In C, strings are represented as arrays of characters terminated by a null character (`\0`). This null terminator indicates the end of the string. When using double quotes to initialize a character array, the compiler automatically appends the null terminator for you.
 
+# String Functions
+C provides several built-in functions for manipulating strings, which are declared in the `string.h` header file. Some commonly used string functions include:
+- `strlen()`: Returns the length of a string (excluding the null terminator).
+- `strcpy()`: Copies one string to another.
+- `strcat()`: Concatenates (appends) one string to the end of another.
+- `strcmp()`: Compares two strings lexicographically.
+Example:
+```c
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char str1[20] = "Hello, ";
+    char str2[] = "World!";
+    
+    // Concatenate str2 to str1
+    strcat(str1, str2);
+    
+    // Print the concatenated string
+    printf("%s\n", str1); // Output: Hello, World!
+    
+    return 0;
+}
+```
 
 
 
