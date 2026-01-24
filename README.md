@@ -2,7 +2,30 @@
 This repository contains resources and materials for learning the C programming language. It includes tutorials, examples, and exercises to help beginners and intermediate programmers enhance their C programming skills.
 
 # Contents
-- `Labs/`: Sample C programs demonstrating different concepts.
+- [`Labs/`](#labs): Sample C programs demonstrating different concepts.
+- [Getting Started](#getting-started)
+- [Hello World Example](#hello-world-example)
+- [Variables and Data Types](#variables-and-data-types)
+  - [Naming Conventions](#naming-conventions)
+- [Printf Function](#printf-function)
+- [Constants](#constants)
+- [Mathematical Operators](#mathematical-operators)
+  - [Increment, Decrement and Assignment Operators](#increment-decrement-and-assignment-operators)
+  - [Comparison and Logical Operators](#comparison-and-logical-operators)
+  - [Order of Operations](#order-of-operations)
+- [Condition Structures](#condition-structures)
+- [Example Coin Flip Program](#example-coin-flip-program)
+- [Loops](#loops)
+  - [Break and Continue Statements](#break-and-continue-statements)
+- [Arrays](#arrays)
+  - [Accessing and Modifying Array Elements](#accessing-and-modifying-array-elements)
+  - [Size of an Array](#size-of-an-array)
+  - [Multi-Dimensional Arrays](#multi-dimensional-arrays)
+  - [Creating and initializing Character Arrays](#creating-and-initializing-character-arrays)
+- [String Functions](#string-functions)
+- [Memory in C](#memory-in-c)
+  - [Pointers](#pointers)
+  - [Reference Operator (&)](#reference-operator)
 
 # Getting Started
 To start with C programming, you need to have a C compiler installed on your system. You can use GCC (GNU Compiler Collection) which is available for most operating systems or install Visual Studio Code with C/C++ extensions. Refer to the VCode documentation for setup instructions https://code.visualstudio.com/docs/languages/cpp.
@@ -45,6 +68,7 @@ The `printf` function is used to print formatted output to the console. Here are
 - `%c`: Character
 - `%s`: String
 - `%%`: Percent sign
+- `%p`: Pointer address or hexadecimal value of an integer address
 
 
 Example:
@@ -325,21 +349,106 @@ Example:
 int main() {
     char str1[20] = "Hello, ";
     char str2[] = "World!";
-    
+    char str3[20];
     // Concatenate str2 to str1
     strcat(str1, str2);
     
     // Print the concatenated string
     printf("%s\n", str1); // Output: Hello, World!
+    // Copy str1 to str3
+    strcpy(str3, str1);
+    // Print the copied string
+    printf("%s\n", str3); // Output: Hello, World!
+    // Compare str1 and str2
+    int result = strcmp(str1, str2);
+    if (result == 0) {
+        printf("str1 and str2 are equal\n");
+    } else if (result < 0) {
+        printf("str1 is less than str2\n");
+    } else {
+        printf("str1 is greater than str2\n");
+    }
     
     return 0;
 }
 ```
 
+# Memory in C
+## Pointers
+In C, a byte of memory can be accessed using a pointer. A pointer containing the address of a variable is said to “point” to that variable.
+Recall that when you declare a variable, a contiguous block of bytes is reserved in memory. A pointer to a variable is the address of the first of these bytes.
 
+The syntax of a pointer is the following:
 
+`dataType* nameOfPointer;`
 
+or
 
+`dataType *nameOfPointer;`
 
+```c
+int* ptr; // Pointer to an int
+int *ptr; // Same as above but different style.
 
+```
+To print the address stored in a pointer, use the `%p` format specifier in `printf`:
+```c
+int var = 42;
+int* ptr = &var; // Pointer to var
+printf("Address of var: %p\n", (void*)ptr); // Print the address
+```
 
+## Refrence Operator (&)
+The reference operator (`&`) is used to obtain the address of a variable. For example:
+```c
+int x = 111; // Declare variable x
+int* ptr = &x; // Declare a pointer to an int variable and assign to it the address of variable x
+printf("%p\n", &x); // Print the address of x
+printf("%p\n", ptr); // Print the address pointed to by ptr 
+
+```
+
+## Dereference Operator (*)
+The dereference operator (`*`) is used to access the value stored at the address a pointer is pointing to. For example:
+```c
+int x = 111; // Declare variable x
+int* ptr = &x; // Declare a pointer to an int variable and assign to it the address of variable x
+int y = *ptr; // Dereference ptr to get the value of x and assign it to y
+printf("%i\n", y); // Print the value pointed to by ptr (which is the value of x)
+```
+
+## Pointer Arithmetic
+Pointers can be incremented or decremented to point to the next or previous memory location of the same data type. Multiplication and division are not allowed.
+```c
+int arr[] = {10, 20, 30, 40, 50};
+int* ptr = arr; // Pointer to the first element of the array
+printf("The First Element is: %d\n", *ptr); // Prints 10
+ptr+=3; // Move pointer to the 3rd element
+printf("The 3rd Element is: %d\n", *ptr); // Prints 40
+ptr-=2;
+printf("The decremental element by 2 is: %d\n", *ptr); // Prints 20
+```
+## Memory Allocation Functions
+C provides several functions for dynamic memory allocation, which are declared in the `stdlib.h` header file:
+- `malloc()`: Allocates a specified number of bytes and returns a pointer to the allocated memory.
+- `calloc()`: Allocates memory for an array of elements, initializes them to zero, and returns a pointer to the allocated memory.
+- `realloc()`: Resizes previously allocated memory.
+- `free()`: Deallocates previously allocated memory.
+Example:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Allocate memory for an integer
+    int* ptr = (int*)malloc(sizeof(int));
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    *ptr = 42;
+    printf("Value: %d\n", *ptr);
+    free(ptr); // Deallocate memory
+    return 0;
+}
+```

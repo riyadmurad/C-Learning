@@ -1,22 +1,16 @@
 #include<stdio.h>
-#include<string.h>
-
 int main() {
-    
-  char s1[14] = "London";
-  char s2[] = " Bridge";
+  int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  char s[] = "Farmer Jack realized that big yellow quilts were expensive!!";
 
-  char n[20] = "New";
-  char y[] = " York";
-  char c[] = " City";
+  // Code for Checkpoint 1 goes here.
+  int* ptr = &arr[9];
+  printf("%i\n",*ptr);
 
-  // Code for checkpoint 1 goes here
-  strcat(s1,s2);
-  printf("%s\n",s1);
-  
-  // Code for checkpoint 2 goes here
-  strcat(strcat(n,y),c);
-  printf("%s\n",n);
-  
-
+  char* ptr2 = &s[0];
+ for (int i=0; i < strlen(s);i++){
+    *ptr2 = '#';
+    ptr2++;
+  }
+  printf("%s\n", s);  
 }
