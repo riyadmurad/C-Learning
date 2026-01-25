@@ -453,7 +453,7 @@ int main() {
 }
 ```
 
-# String Copier Function
+## String Copier Function
 In the following example, we create a function that copies a string from a source to a destination using pointers.
 ```c
 #include<stdio.h>
@@ -477,3 +477,48 @@ int main(){
  
 }
 ```
+
+# Functions
+Functions are a group of instructions that take inputs , process them, and return an output. 
+Functions are great because:
+- They allow code reusability.
+- You can write `DRY` code (Don't Repeat Yourself).
+- you can execute any number of times without rewriting the same code.
+## How to Decalre a Function
+To declare a function, you need to specify the return type, function name, and parameters (if any). The syntax is as follows:
+```c
+returnType functionName(parameterType1 parameter1, parameterType2 parameter2, ...) {
+    // Function body
+    return returnValue; // If the return type is not void
+}
+```
+## Function Libraries
+C provides a variety of standard libraries that contain pre-defined functions for various tasks. Some commonly used libraries include:
+- `stdio.h`: Standard Input/Output library (e.g., `printf`, `scanf`).
+- `stdlib.h`: Standard Library (e.g., memory allocation, random numbers).
+- `string.h`: String manipulation functions (e.g., `strlen`, `strcpy`).
+- `math.h`: Mathematical functions (e.g., `sqrt`, `pow`).
+You can include these libraries in your program using the `#include` directive:
+```c
+#include <stdio.h>
+#include <math.h>
+#include <ctype.h>
+
+int main() {
+  float number = 4.5;
+  char letter = 'a';
+  printf("%f\n", ceil(number)); // 5.000000
+  printf("%f\n", log(number)); // 1.504077
+  printf("%d\n", isupper(letter)); // 0
+  letter = toupper(letter);
+  printf("%d\n", isupper(letter)); // 1
+}
+
+```
+>[!NOTE]
+    > To generate a random number each time you run your program, you need to seed the random number generator using the `srand()` function with a varying value, such as the current time. This is typically done using the `time()` function from the `time.h` library. 
+    so use: `srand(time(NULL)) ;`
+    > To define a range of random numbers between a minimum and maximum value, you can use the following formula:
+    `randomNumber = (rand() % (max - min + 1)) + min;`
+    This formula ensures that the generated random number falls within the specified range [min, max].
+
