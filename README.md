@@ -517,8 +517,7 @@ int main() {
 ```
 >[!NOTE]
  > To generate a random number each time you run your program, you need to seed the random number generator using the `srand()` function with a varying value, such as the current time. This is typically done using the `time()` function from the `time.h` library. 
-    so use: `srand(time(NULL)) ;`
-    
+    so use: `srand(time(NULL)) ;` \n
  > To define a range of random numbers between a minimum and maximum value, you can use the following formula:
     `randomNumber = (rand() % (max - min + 1)) + min;`
     This formula ensures that the generated random number falls within the specified range [min, max].
