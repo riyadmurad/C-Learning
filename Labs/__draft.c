@@ -1,11 +1,14 @@
-#include <stdio.h>
+#include<stdio.h>
 
-// Write your code below
-void printMyFavoriteAnimal(){
- printf("My favorite animaly is a cat\n");
+void f(int *p) {
+  int b = 2;
+  p = &b;
+  printf("%d ", *p);
 }
 
-int main(void) {
-
-  
+int main() {
+  int a = 1;
+  int *p = &a;
+  f(p);
+  printf("%d ", *p);
 }

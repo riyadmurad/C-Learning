@@ -522,3 +522,58 @@ int main() {
     `randomNumber = (rand() % (max - min + 1)) + min;`
     This formula ensures that the generated random number falls within the specified range [min, max].
 
+## Functions with Pointers
+Functions can also accept pointers as parameters, allowing them to modify the original variables passed to them. A benefit of using a pointer to a variable as opposed to the variable itself is that it saves memory as the function does not need to allocate more memory for complex [data types](https://www.codecademy.com/resources/docs/c/data-types) like [arrays](https://www.codecademy.com/resources/docs/c/arrays)
+
+```c
+#include <stdio.h>
+#include <stdio.h>
+void increment(int* num) {
+    (*num)++; // Increment the value at the address pointed to by num
+
+}
+
+int main(void) {
+ int value = 100;
+ increment(&value);
+ printf("Value after increment: %d\n", value); // Should print 101
+  
+}
+```   
+
+## Function Prototypes
+A function prototype is a declaration of a function that specifies its name, return type, and parameters without providing the function body. Function prototypes are typically placed at the beginning of a C program or in a header file. They inform the compiler about the function's signature before its actual implementation, allowing you to call the function before its definition in the code and enabling the usaged of functions across another functions.
+
+**One thing to note** is that the names of the parameters associated with the function are not necessary for a function prototype. The *compiler is concerned with 3* things when it comes to function prototypes:
+- The function name
+- The return type
+- The parameter type(s)
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+void repeatDigit(int repetions);
+int getRandomNumber(int maxNumber);
+
+// Define prototypes above
+// the function definitions
+void repeatDigit(int repetitions) {
+  int digit = getRandomNumber(9); // Get a random digit between 1 and 9 using the getRandomNumber function
+  for(int i = 0; i < repetitions; i++) {
+    printf("%d ", digit);
+  }
+  printf("\n");
+}
+
+int getRandomNumber(int maxNumber) {
+  int randomNumber = rand() % maxNumber + 1;
+  return randomNumber;
+}
+
+int main(void) {
+  srand(time(NULL)); // Seed the random number generator with the current time in order to get different random numbers each time the program is run
+  int repetitions = getRandomNumber(100);
+  repeatDigit(repetitions);
+}
+```
