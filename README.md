@@ -577,3 +577,39 @@ int main(void) {
   repeatDigit(repetitions);
 }
 ```
+
+# Structures
+A structure in C is a user-defined data type that allows you to group related variables of different types under a single name. Structures are useful for organizing complex data and creating custom data types.
+Structure helps to:
+- Reduce complexity by representing a set of data with one variable
+- Package different, but logically similar, data together
+- Better represent real-world “things” into data types
+## Defining a Structure
+To define a structure, use the `struct` keyword followed by the structure name and the members enclosed in curly braces. For example:
+```c
+struct Person {
+    char name[50];
+    int age;
+    float height;
+};
+```
+## Initializing and Accessing Structure Members
+You can initialize and access the structure members in several ways:
+1. Using the dot operator (`.`) with a structure variable:
+```c
+struct Person person1 = {
+    .name = "Alice",
+    .age = 30,
+    .height = 5.5
+};
+```
+2. add the values in order without specifying the member names:
+```c
+struct Person person2 = {"Bob", 25, 6.0};
+``` 
+**To access the members of a structure, use the dot operator (`.`) with the structure variable:**
+```c
+printf("Name: %s\n", person1.name);
+printf("Age: %d\n", person1.age);
+printf("Height: %.2f\n", person1.height);
+```
