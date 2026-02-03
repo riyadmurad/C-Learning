@@ -1,19 +1,26 @@
 #include <stdio.h>
-
 struct Person {
   char name[40];
   int age;
 };
 
-int main(void) {
-  struct Person person1 = {"Martin", 57};
-  struct Person person2 = {"Michelle", 27};
-  // Write your code below
-  struct Person* person1Pointer = &person1;
-  struct Person* person2Pointer = &person2;
-  (*person1Pointer).age += 1; 
-  person2Pointer->age += 10;
+// Write your function below
+struct Person ageOne(struct Person friend1, struct Person* friend2Pointer) {
+    friend1.age +=1;
+  friend2Pointer->age +=1;
+  return friend1; 
 
-  printf("Hello my name is %s and I am %d years old.\n", person1.name, person1.age);
-  printf("Hello my name is %s and I am %d years old.\n", person2.name, person2.age);
+}
+
+
+
+int main(void) {
+  struct Person myFriend = {"Martin", 57};
+  struct Person myOtherFriend = {"Michelle", 27};
+  // Call your function below
+  ageOne(myFriend,&myOtherFriend);
+  
+
+  printf("Hello my name is %s and I am %d years old.\n", myFriend.name, myFriend.age);
+  printf("Hello my name is %s and I am %d years old.\n", myOtherFriend.name, myOtherFriend.age);
 }

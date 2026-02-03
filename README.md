@@ -639,3 +639,50 @@ ptr->name;
 ptr->age;
 ptr->height;
 ```
+## Structures with functions
+We can specify structures and pointers
+```c
+void myFunction(struct Bottle b, struct Bottle* bPointer)
+```
+
+When passing a structure to a function:
+
+   * A copy of the structure is made so memory usage is a concern
+   * Any modifications made to the structure will not affect the original structure, only the copy
+
+When passing a pointer to a structure:
+
+ * Because the pointer is the address of the original structure any modifications to the member 
+variables will affect the original structure:
+```c
+void bottleFunction(struct Bottle b, struct Bottle* bPointer){
+  b.name = "Super Large";
+  b.maxCapacity = 100;
+  bPointer->name = "Super Small";
+  bPointer->maxCapacity = 4;    
+}
+
+
+int main(){
+  struct Bottle b1 = {"Medium", 24, 9};
+  struct Bottle b2 = {"Large", 35, 9};
+
+  bottleFunction(b1, &b2);
+}
+```
+
+In the above example:
+
+ * `bottleFunction` has 2 parameters, a `Bottle` structure and a `pointer` to a Bottle structure
+ * Inside the function, the structures are accessed the same as they would whether it is a structure or pointer to a structure.
+ * The first argument in the call to `bottleFunction()` inside `main()` is `b1`. A copy of this structure is made within `bottleFunction()` and no changes can be made to the values of `b1` in `main()`
+ * The second argument in the call to `bottleFunction()` is `&b2`: the address of `b2`. Any change to the member variables using this address will change the values of `b2` in `main()`
+
+We can also return structures by setting the return type in the function signature:
+```c
+struct Bottle getEmptyBottle(void){
+  struct Bottle b = {"My Bottle", 24, 0};
+  return b;
+}
+```
+Notice that structures as parameters and as the return type must use the `struct` keyword.
