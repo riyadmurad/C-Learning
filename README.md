@@ -429,11 +429,18 @@ ptr-=2;
 printf("The decremental element by 2 is: %d\n", *ptr); // Prints 20
 ```
 ## Memory Allocation Functions
+The C Program is organized into two main memory areas: Stack and Heap.
+- `he Stack` which is highly ordered and data stored are only available within the scope they were created.
+- `The Heap` which is less organized and it's allocated when you define a variable within your program. The memory is allocated till you release it using the `free()` function.
+## Memory Functions
 C provides several functions for dynamic memory allocation, which are declared in the `stdlib.h` header file:
-- `malloc()`: Allocates a specified number of bytes and returns a pointer to the allocated memory.
-- `calloc()`: Allocates memory for an array of elements, initializes them to zero, and returns a pointer to the allocated memory.
-- `realloc()`: Resizes previously allocated memory.
-- `free()`: Deallocates previously allocated memory.
+- `malloc()`: Use this function to reserve as many bytes as you want on the heap
+- `calloc()`: Use this function to reserve memory for some number of ints, doubles, or any other data type. 
+- `realloc()`: Use this function to expand or contract a block of reserved memory (reserved by either malloc() or calloc()).
+- `free()`: Use this function to release previously allocated memory.
+
+>[!NOTE]
+    > Always free memory that you have allocated on the heap using `free()` to avoid memory leaks.
 Example:
 ```c
 #include <stdio.h>
@@ -612,4 +619,23 @@ struct Person person2 = {"Bob", 25, 6.0};
 printf("Name: %s\n", person1.name);
 printf("Age: %d\n", person1.age);
 printf("Height: %.2f\n", person1.height);
+```
+
+## Structures with Pointers
+This is accomplished by first defining the structure variable, then defining a pointer and assigning it the address to the structure variable.
+```c
+struct Person person1 = {"Alice", 30, 5.5};
+struct Person* ptr = &person1; // Pointer to the structure variable
+```
+To access the members of a structure using `.`
+```c
+(*ptr).name;
+(*ptr).age;
+(*ptr).height;
+```
+Alternatively, you can use the arrow operator (`->`) to access structure members through a pointer:
+```c
+ptr->name;
+ptr->age;
+ptr->height;
 ```
