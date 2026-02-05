@@ -26,6 +26,21 @@ This repository contains resources and materials for learning the C programming 
 - [Memory in C](#memory-in-c)
   - [Pointers](#pointers)
   - [Reference Operator (&)](#reference-operator)
+  - [Dereference Operator (*)](#dereference-operator)
+  - [Pointer Arithmetic](#pointer-arithmetic)
+  - [Memory Allocation Functions](#memory-allocation-functions)
+  - [Memory Functions](#memory-functions)
+  - [String Copier Function](#string-copier-function)
+- [Functions](#functions)
+  - [How to Declare a Function](#how-to-declare-a-function)
+  - [Function Libraries](#function-libraries)
+  - [Functions with Pointers](#functions-with-pointers)
+  - [Function Prototypes](#function-prototypes)
+- [Structures](#structures)
+  - [Defining a Structure](#defining-a-structure)
+  - [Initializing and Accessing Structure Members](#initializing-and-accessing-structure-members)
+  - [Structures with Pointers](#structures-with-pointers)
+  - [Structures with functions](#structures-with-functions)
 
 # Getting Started
 To start with C programming, you need to have a C compiler installed on your system. You can use GCC (GNU Compiler Collection) which is available for most operating systems or install Visual Studio Code with C/C++ extensions. Refer to the VCode documentation for setup instructions https://code.visualstudio.com/docs/languages/cpp.
