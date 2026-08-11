@@ -734,3 +734,5 @@ free(array);  // Free the allocated memory
 ```
 From a security perspective, memory leaks can make an application weaker to attacks or even potentially expose sensitive data. A program or application crashing can also affect the availability of important systems.
 
+
+
