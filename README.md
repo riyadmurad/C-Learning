@@ -146,24 +146,24 @@ else {
 }   
 ```
 ## Order of Operations
-| Priority | Symbol |
-|----------|--------|
-| 1 | ++ |
-| 1 | -- |
-| 1 | () |
-| 2 | ! |
-| 2 | (typecast) |
-| 3 | * |
-| 3 | / |
-| 3 | % |
-| 4 | + |
-| 4 | - |
-| 5 | <, <= |
-| 5 | >, >= |
-| 6 | ==, != |
-| 7 | && |
-| 8 | \|\| |
-| 9 | all assignment operators |
+| Priority | Symbol                   |
+| -------- | ------------------------ |
+| 1        | ++                       |
+| 1        | --                       |
+| 1        | ()                       |
+| 2        | !                        |
+| 2        | (typecast)               |
+| 3        | *                        |
+| 3        | /                        |
+| 3        | %                        |
+| 4        | +                        |
+| 4        | -                        |
+| 5        | <, <=                    |
+| 5        | >, >=                    |
+| 6        | ==, !=                   |
+| 7        | &&                       |
+| 8        | \|\|                     |
+| 9        | all assignment operators |
 
 # Condition Structures
 C provides various control structures to manage the flow of execution in a program:
@@ -688,7 +688,7 @@ int main(){
 
 In the above example:
 
- * `bottleFunction` has 2 parameters, a `Bottle` structure and a `pointer` to a Bottle structure
+ * `bottleFunction` has 2 parameters, a `Bottle` structure and a `pointer` to a `Bottle` structure
  * Inside the function, the structures are accessed the same as they would whether it is a structure or pointer to a structure.
  * The first argument in the call to `bottleFunction()` inside `main()` is `b1`. A copy of this structure is made within `bottleFunction()` and no changes can be made to the values of `b1` in `main()`
  * The second argument in the call to `bottleFunction()` is `&b2`: the address of `b2`. Any change to the member variables using this address will change the values of `b2` in `main()`
@@ -701,3 +701,36 @@ struct Bottle getEmptyBottle(void){
 }
 ```
 Notice that structures as parameters and as the return type must use the `struct` keyword.
+
+
+# Buffer overflow Mitigation
+We should always avoid the usage of functions that do not perform bound checking on the input data. 
+These functions include `gets()`, `strcpy()`, `strcat()`, and `sprintf()`. Instead, we should use their safer alternatives that allow us to specify the maximum number of characters to read or write. 
+Here is a quick reference with vulnerable function and their secure
+
+| Vulnerable Function | Secure Counterpart         | Description                                                                                             |
+| ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `gets()`            | `fgets()`                  | `fgets` allows specifying the buffer size, preventing buffer overflow.                                  |
+| `strcpy()`          | `strncpy()` / `strlcpy()`  | `strncpy` and `strlcpy` allow specifying the maximum number of characters to copy, preventing overflow. |
+| `strcat()`          | `strncat()` / `strlcat()`  | `strncat` and `strlcat` limit the number of characters concatenated, ensuring no buffer overflow.       |
+| `sprintf()`         | `snprintf()`               | `snprintf` allows specifying the buffer size, preventing overflows in formatted string output.          |
+| `scanf()`           | `fgets()` / `scanf("%Ns")` | Use `fgets` for input or limit string input size using `scanf("%Ns")` to avoid overflow.                |
+
+
+# Memory Leaks Vulnerability in C
+Memory leaks occur when a program allocates memory on the heap but fails to release it after use, leading to wasted memory resources and potential performance issues. In C, memory leaks can happen if you forget to call `free()` on dynamically allocated memory.
+
+Consider the following example:
+```c
+int *array = (int *)malloc(10 * sizeof(int));  // Dynamically allocate memory
+// Memory is used but never freed
+
+```
+To prevent memory leaks, always ensure that you free any dynamically allocated memory when it is no longer needed:
+```c
+int *array = (int *)malloc(10 * sizeof(int));  // Dynamically allocate memory
+// Use the allocated memory
+free(array);  // Free the allocated memory
+```
+From a security perspective, memory leaks can make an application weaker to attacks or even potentially expose sensitive data. A program or application crashing can also affect the availability of important systems.
+
