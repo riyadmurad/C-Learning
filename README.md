@@ -41,6 +41,11 @@ This repository contains resources and materials for learning the C programming 
   - [Initializing and Accessing Structure Members](#initializing-and-accessing-structure-members)
   - [Structures with Pointers](#structures-with-pointers)
   - [Structures with functions](#structures-with-functions)
+- [Buffer overflow Mitigation](#buffer-overflow-mitigation)
+- [Memory Leaks Vulnerability in C](#memory-leaks-vulnerability-in-c)
+  - [Dangling Pointers Vulnerability in C](#dangling-pointers-vulnerability-in-c)
+- [Format String Vulnerability in C](#format-string-vulnerability-in-c)
+  - [Format String Vulnerability Mitigation in C](#format-string-vulnerability-mitigation-in-c)
 
 # Getting Started
 To start with C programming, you need to have a C compiler installed on your system. You can use GCC (GNU Compiler Collection) which is available for most operating systems or install Visual Studio Code with C/C++ extensions. Refer to the VCode documentation for setup instructions https://code.visualstudio.com/docs/languages/cpp.
@@ -297,13 +302,14 @@ int matrix[3][4] = {
     {1, 2, 3, 4},
     {5, 6, 7, 8},
     {9, 10, 11, 12}
-};
-```
-You can access elements in a two-dimensional array using two indices:
-```c
-printf("%d\n", matrix[1][2]); // Prints 7 (second row, third column)
-```  
 
+| Specifier | Description                |
+| --------- | -------------------------- |
+| %d        | Integer                    |
+| %s        | String (character array)   |
+| %f        | Floating-point number      |
+| %x        | Hexadecimal representation |
+| %p        | Pointer address            |
 To access the elements of a multi-dimensional array, you can use nested loops. For example, to print all elements of a 2D array:
 ```c
 int matrix[3][4] = {
@@ -734,5 +740,91 @@ free(array);  // Free the allocated memory
 ```
 From a security perspective, memory leaks can make an application weaker to attacks or even potentially expose sensitive data. A program or application crashing can also affect the availability of important systems.
 
+## Dangling Pointers Vulnerability in C
+A dangling pointer is a pointer that continues to reference a memory location after the object it points to has been deallocated or freed. Accessing a dangling pointer can lead to undefined behavior, including crashes, data corruption, or security vulnerabilities. Dangling pointers can occur in various scenarios, such as when
+- A pointer is freed, but the pointer variable is not set to NULL.
+- A pointer is returned from a function, but the memory it points to has been deallocated
+- A pointer is used after the object it points to has gone out of scope.
+```c
+int *ptr = (int *)malloc(sizeof(int)); // Dynamically allocate memory
+*ptr = 42; // Use the allocated memory
+free(ptr); // Free the allocated memory
+// ptr is now a dangling pointer, as it still points to the freed memory
+```
+To avoid dangling pointers, you can set the pointer to NULL after freeing it:
+```c
+int *ptr = (int *)malloc(sizeof(int)); // Dynamically allocate memory
+*ptr = 42; // Use the allocated memory
+free(ptr); // Free the allocated memory
+ptr = NULL; // Set the pointer to NULL to avoid dangling pointer
+```
+Additionally, tools like `AddressSanitizer` or `Valgrind` can help detect dangling pointer issues during development and testing.
+AddressSanitizer can be used by adding the `-fsanitize=address` flag when compiling your C code. For example:
+```bash
+gcc -fsanitize=address -g your_program.c -o your_program
+```
 
+# Format String Vulnerability in C
+Format string vulnerabilities occur when user input is improperly handled in functions that use format specifiers, such as `printf`, `sprintf`, or `fprintf`. If an attacker can control the format string, they may be able to read or write arbitrary memory locations, leading to potential security breaches.
+For example, consider the following vulnerable code:
+```c
+#include <stdio.h>
+void vulnerableFunction(char *userInput) {
+    printf(userInput); // Vulnerable to format string attacks
+}
+int main() {
+    char input[100];
+    printf("Enter your input: ");
+    fgets(input, sizeof(input), stdin);
+    vulnerableFunction(input);
+    return 0;
+}
+```
+In this example, if an attacker provides a format string like `%x %x %x`, they can read memory contents, potentially exposing sensitive information.
+To mitigate format string vulnerabilities, always use format specifiers explicitly and avoid passing user input directly to functions that expect format strings. For example:
+```c
+#include <stdio.h>
+void safeFunction(char *userInput) {
+    printf("%s", userInput); // Safe usage with explicit format specifier
+}
+int main() {
+    char input[100];
+    printf("Enter your input: ");
+    fgets(input, sizeof(input), stdin);
+    safeFunction(input);
+    return 0;
+}
+```
+
+## Format String Vulnerability Mitigation in C
+To mitigate format string vulnerabilities in C, follow these best practices:
+1. **Use Explicit Format Specifiers**: Always use explicit format specifiers when printing user input. Avoid passing user input directly to functions like `printf`, `sprintf`, or `fprintf`. Instead, use a format string that specifies the expected data type. 
+
+| Specifier | Description                |
+| --------- | -------------------------- |
+| %d        | Integer                    |
+| %s        | String (character array)   |
+| %f        | Floating-point number      |
+| %x        | Hexadecimal representation |
+| %p        | Pointer address            |
+
+ **For example**:
+```c
+printf("%s", userInput); // Safe usage with explicit format specifier
+```
+2. **Validate User Input**: Validate and sanitize user input before using it in any output functions. Ensure that the input conforms to expected formats and lengths. Reject or sanitize any input that does not meet the criteria. For example:
+```c
+if (strlen(userInput) > MAX_INPUT_LENGTH) {
+    // Handle error: input too long
+}
+```
+3. **Limit Input Length**: When reading user input, use functions that allow you to specify the maximum number of characters to read, such as `fgets()` instead of `gets()`. This prevents buffer overflows and ensures that the input does not exceed the allocated buffer size. For example:
+```c
+fgets(input, sizeof(input), stdin); // Read input with a maximum length
+```
+
+Additionally, you can use `-Wformat-security` flag with gcc to enable format string security checks during compilation. This flag will generate warnings for potential format string vulnerabilities in your code. For example:
+```bash
+gcc -Wformat-security -o your_program your_program.c
+```
 
