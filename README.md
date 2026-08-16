@@ -708,8 +708,10 @@ struct Bottle getEmptyBottle(void){
 ```
 Notice that structures as parameters and as the return type must use the `struct` keyword.
 
+---
+# Secure Coding Practices in C
 
-# Buffer overflow Mitigation
+## Buffer overflow Mitigation
 We should always avoid the usage of functions that do not perform bound checking on the input data. 
 These functions include `gets()`, `strcpy()`, `strcat()`, and `sprintf()`. Instead, we should use their safer alternatives that allow us to specify the maximum number of characters to read or write. 
 Here is a quick reference with vulnerable function and their secure
@@ -723,7 +725,7 @@ Here is a quick reference with vulnerable function and their secure
 | `scanf()`           | `fgets()` / `scanf("%Ns")` | Use `fgets` for input or limit string input size using `scanf("%Ns")` to avoid overflow.                |
 
 
-# Memory Leaks Vulnerability in C
+## Memory Leaks Vulnerability in C
 Memory leaks occur when a program allocates memory on the heap but fails to release it after use, leading to wasted memory resources and potential performance issues. In C, memory leaks can happen if you forget to call `free()` on dynamically allocated memory.
 
 Consider the following example:
@@ -740,7 +742,7 @@ free(array);  // Free the allocated memory
 ```
 From a security perspective, memory leaks can make an application weaker to attacks or even potentially expose sensitive data. A program or application crashing can also affect the availability of important systems.
 
-## Dangling Pointers Vulnerability in C
+### Dangling Pointers Vulnerability in C
 A dangling pointer is a pointer that continues to reference a memory location after the object it points to has been deallocated or freed. Accessing a dangling pointer can lead to undefined behavior, including crashes, data corruption, or security vulnerabilities. Dangling pointers can occur in various scenarios, such as when
 - A pointer is freed, but the pointer variable is not set to NULL.
 - A pointer is returned from a function, but the memory it points to has been deallocated
@@ -764,7 +766,7 @@ AddressSanitizer can be used by adding the `-fsanitize=address` flag when compil
 gcc -fsanitize=address -g your_program.c -o your_program
 ```
 
-# Format String Vulnerability in C
+## Format String Vulnerability in C
 Format string vulnerabilities occur when user input is improperly handled in functions that use format specifiers, such as `printf`, `sprintf`, or `fprintf`. If an attacker can control the format string, they may be able to read or write arbitrary memory locations, leading to potential security breaches.
 For example, consider the following vulnerable code:
 ```c
@@ -796,7 +798,7 @@ int main() {
 }
 ```
 
-## Format String Vulnerability Mitigation in C
+### Format String Vulnerability Mitigation in C
 To mitigate format string vulnerabilities in C, follow these best practices:
 1. **Use Explicit Format Specifiers**: Always use explicit format specifiers when printing user input. Avoid passing user input directly to functions like `printf`, `sprintf`, or `fprintf`. Instead, use a format string that specifies the expected data type. 
 
@@ -828,3 +830,68 @@ Additionally, you can use `-Wformat-security` flag with gcc to enable format str
 gcc -Wformat-security -o your_program your_program.c
 ```
 
+## Integer Overflow Vulnerability in C
+ An integer overflow or underflow, causing the value to wrap around and become negative or reset to zero, depending on the operation. 
+ 
+ Below the reference types and their ranges:
+| Data Type    | Size (bytes) | Range (min)                | Range (max)               |
+| ------------ | ------------ | -------------------------- | ------------------------- |
+| int          | 4            | -2,147,483,648             | 2,147,483,647             |
+| short        | 2            | -32,768                    | 32,767                    |
+| unsigned int | 4            | 0                          | 4,294,967,295             |
+| float        | 4            | 1.2E-38                    | 3.4E+38                   |
+| double       | 8            | 2.3E-308                   | 1.7E+308                  |
+| long         | 8            | -9,223,372,036,854,775,808 | 9,223,372,036,854,775,807 |
+
+An example of integer overflow:
+```c
+#include <stdio.h>
+#include <limits.h>
+
+int main(void) {
+    int maxInt = INT_MAX;  // 2,147,483,647
+    int overflowed = maxInt + 1; // This wraps around to -2,147,483,648
+
+    printf("INT_MAX = %d\n", maxInt);
+    printf("maxInt + 1 = %d\n", overflowed);
+    return 0;
+}
+```
+
+This happens because the result exceeds the maximum value that an `int` can hold, so the value wraps around and causes incorrect behavior.
+
+### Integer Overflow Mitigation in C
+To mitigate integer overflow vulnerabilities in C, follow these best practices:
+1. **Choose Appropriate Data Types**: If you anticipate that the values may exceed the limits of a standard integer type, consider using larger data types such as `long long` or `unsigned long long`. These types can hold larger values and reduce the risk of overflow. For example:
+```c
+long long largeValue = 9223372036854775807; // Maximum value for long long
+```
+2. **Perform Range Checks**: Before performing arithmetic operations, check if the result will exceed the maximum or minimum limits of the data type. You can use constants from `limits.h` such as `INT_MIN` and `INT_MAX`
+
+below an exmple of safe addition:
+```c
+int safeAdd(int a, int b) {
+  if (a > 0 && b > 0 && a > INT_MAX - b) {
+    printf("Overflow detected!\n");
+    return -1;
+  } else if (a < 0 && b < 0 && a < INT_MIN - b) {
+    printf("Underflow detected!\n");
+    return -1;
+  }
+  return a + b;
+}
+```
+3. **C provides safer arithmetic functions** that can detect overflows, such as the built-in functions `__builtin_add_overflow()` and `__builtin_mul_overflow()`. These functions automatically check if an overflow occurred during addition or multiplication and return a boolean result.
+
+
+```c
+int a = INT_MAX;
+int b = 1;
+int result;
+
+if (__builtin_add_overflow(a, b, &result)) {
+  printf("Overflow occurred!\n");
+} else {
+  printf("Result: %d\n", result);
+}
+```
